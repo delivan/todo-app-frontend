@@ -1,18 +1,18 @@
 import React from 'react';
-import styles from './PageTemplate.scss';
 import classNames from 'classnames/bind';
+
+import styles from './PageTemplate.scss';
 
 const cx = classNames.bind(styles);
 
-function PageTemplate({ children }) {
+export default function PageTemplate({ children }) {
   return (
     <div className={cx('page-template')}>
       <h1>Todo App Frontend</h1>
+      <p>skills: CRA, Redux, Immutable.js </p>
       <div className={cx('content')}>
         {children}
       </div>
     </div>
   );
 };
-
-export default PageTemplate;

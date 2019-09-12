@@ -8,17 +8,21 @@ const REMOVE = 'todos/REMOVE';
 export const insert = createAction(INSERT);
 export const toggle = createAction(TOGGLE);
 export const remove = createAction(REMOVE);
-
-const initialState = List([
+export const initialTodos = List([
   Map({
     id: 0,
-    text: '책 30분 이상 읽기',
-    done: false
+    text: 'Creact React App 적용하기',
+    done: true
   }),
   Map({
     id: 1,
-    text: '책 읽은 부분 요약하기',
-    done: false
+    text: 'Redux 적용하기',
+    done: true
+  }),
+  Map({
+    id: 2,
+    text: 'Immutable.js 적용하기',
+    done: true
   })
 ]);
 
@@ -44,4 +48,4 @@ export default handleActions({
     const index = state.findIndex(todo => todo.get('id') === id );
     return state.delete(index);
   } 
-}, initialState);
+}, initialTodos);

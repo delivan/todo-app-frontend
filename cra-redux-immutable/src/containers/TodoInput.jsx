@@ -1,14 +1,15 @@
 import React from 'react';
-import TodoInput from '../components/TodoInput';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+
+import TodoInput from '../components/TodoInput';
 
 import * as inputActions from '../modules/input';
 import * as todosActions from '../modules/todos';
 
 class TodoInputContainer extends React.Component {
-  id = 1
+  id = todosActions.initialTodos.size
   getIncreasedId = () => {
     return ++this.id;
   }
@@ -42,6 +43,12 @@ class TodoInputContainer extends React.Component {
     );
   }
 }
+
+TodoInputContainer.propTypes = {
+  value: PropTypes.string,
+  InputActions: PropTypes.object,
+  TodosActions: PropTypes.object,
+};
 
 const mapStateToProps = (state) => ({
   value: state.input.get('value')

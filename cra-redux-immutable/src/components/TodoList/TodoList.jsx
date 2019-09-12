@@ -1,4 +1,7 @@
 import React from 'react';
+import Immutable from 'immutable';
+import PropTypes from 'prop-types';
+
 import TodoItem from '../TodoItem';
 
 export default function TodoList({
@@ -23,3 +26,9 @@ export default function TodoList({
     </div>
   )
 }
+
+TodoList.propTypes = {
+  todos: PropTypes.instanceOf(Immutable.List),
+  handleToggleItem: PropTypes.func,
+  handleRemoveItem: PropTypes.func
+};

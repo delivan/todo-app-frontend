@@ -1,6 +1,8 @@
 import React from 'react';
-import styles from './TodoItem.scss';
+import PropTyeps from 'prop-types';
 import classNames from 'classnames/bind';
+
+import styles from './TodoItem.scss';
 
 const cx = classNames.bind(styles);
 
@@ -18,3 +20,9 @@ export default function TodoItem({
     </div>
   );
 }
+
+TodoItem.propTypes = {
+  done: PropTyeps.bool,
+  handleToggle: PropTyeps.func,
+  handleRemove: PropTyeps.func
+};
