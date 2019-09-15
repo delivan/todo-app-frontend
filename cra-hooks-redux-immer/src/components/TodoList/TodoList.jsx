@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 
 import TodoItem from '../TodoItem';
@@ -11,12 +10,12 @@ export default function TodoList({
 }) {
   const todoList = todos.map(todo => (
     <TodoItem
-      key={todo.get('id')}
-      done={todo.get('done')}
-      handleToggle={() => handleToggleItem(todo.get('id'))}
-      handleRemove={() => handleRemoveItem(todo.get('id'))}
+      key={todo.id}
+      done={todo.done}
+      handleToggle={() => handleToggleItem(todo.id)}
+      handleRemove={() => handleRemoveItem(todo.id)}
     >
-      {todo.get('text')}
+      {todo.text}
     </TodoItem>
   ));
 
@@ -28,7 +27,7 @@ export default function TodoList({
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.instanceOf(Immutable.List),
+  todos: PropTypes.array,
   handleToggleItem: PropTypes.func,
   handleRemoveItem: PropTypes.func
 };

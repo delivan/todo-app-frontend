@@ -9,7 +9,7 @@ import * as inputActions from '../modules/input';
 import * as todosActions from '../modules/todos';
 
 class TodoInputContainer extends React.Component {
-  currentId = todosActions.initialTodos.size - 1
+  currentId = todosActions.initialTodos.length - 1
   getIncreasedId = () => {
     return ++this.currentId;
   }
@@ -53,10 +53,10 @@ TodoInputContainer.propTypes = {
   TodosActions: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  value: state.input.get('value')
+const mapStateToProps = state => ({
+  value: state.input.value
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   InputActions: bindActionCreators(inputActions, dispatch),
   TodosActions: bindActionCreators(todosActions, dispatch)
 });

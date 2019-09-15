@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 
 import TodoList from '../components/TodoList';
 
@@ -33,7 +32,7 @@ class TodoListContainer extends React.Component {
 }
 
 TodoListContainer.propTypes = {
-  todos: PropTypes.instanceOf(Immutable.List),
+  todos: PropTypes.array,
   TodosActions: PropTypes.object
 };
 
