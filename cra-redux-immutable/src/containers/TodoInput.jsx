@@ -9,9 +9,9 @@ import * as inputActions from '../modules/input';
 import * as todosActions from '../modules/todos';
 
 class TodoInputContainer extends React.Component {
-  id = todosActions.initialTodos.size
+  currentId = todosActions.initialTodos.size - 1
   getIncreasedId = () => {
-    return ++this.id;
+    return ++this.currentId;
   }
   
   handleChange = e => {
