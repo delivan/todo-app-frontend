@@ -1,5 +1,5 @@
 {
-  "name": "cra-redux-immutable",
+  "name": "cra-hooks-redux-immer",
   "version": "1.0.0",
   "dependencies": {
     "classnames": "^2.2.6",

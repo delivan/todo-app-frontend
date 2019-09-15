@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTyeps from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classNames from 'classnames/bind';
+
+import * as todosActions from '../../modules/todos';
 
 import styles from './TodoItem.scss';
 
 const cx = classNames.bind(styles);
 
-class TodoItem extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props.done !== nextProps.done;
-  }
+function TodoItem({ id, done, TodosActions, children }) {
+  const handleToggle = useCallback(() => {
+    TodosActions.toggle(id);
+  }, [TodosActions, id]);
 
-  render() { 
-    const { done, handleToggle, handleRemove, children } = this.props;
-    return (
-      <div className={cx('todo-item')} onClick={handleToggle}>
-        <div className={cx('delete-button')} onClick={(e) => {
-          e.stopPropagation();
-          handleRemove();
-        }}>삭제</div>
-        <div className={cx('text', {done})}>{children}</div>
-        <input className={cx('checker')} type="checkbox" checked={done} readOnly/>
-      </div>
-    );
-  }
+  const handleRemove = useCallback(e => {
+    e.stopPropagation();
+    TodosActions.remove(id);
+  }, [TodosActions, id]);
+
+  return (
+    <div className={cx('todo-item')} onClick={handleToggle}>
+      <div className={cx('delete-button')} onClick={handleRemove}>삭제</div>
+      <div className={cx('text', {done})}>{children}</div>
+      <input className={cx('checker')} type="checkbox" checked={done} readOnly/>
+    </div>
+  );
 }
 
 TodoItem.propTypes = {
+  id: PropTyeps.number,
   done: PropTyeps.bool,
-  handleToggle: PropTyeps.func,
-  handleRemove: PropTyeps.func
+  TodosActions: PropTyeps.object
 };
 
-export default TodoItem;
+const mapDispatchToProps = dispatch => ({
+  TodosActions: bindActionCreators(todosActions, dispatch)
+});
+export default connect(
+  null,
+  mapDispatchToProps
+)(React.memo(TodoItem));
