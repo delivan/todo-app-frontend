@@ -14,9 +14,8 @@ class TodoListContainer extends React.Component {
     TodosActions.toggle(id);
   }
 
-  handleRemoveItem = (e, id) => {
+  handleRemoveItem = id => {
     const { TodosActions } = this.props;
-    e.stopPropagation();
     TodosActions.remove(id);
   }
 

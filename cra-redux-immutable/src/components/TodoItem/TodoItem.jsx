@@ -14,7 +14,10 @@ export default function TodoItem({
 }) {
   return (
     <div className={cx('todo-item')} onClick={handleToggle}>
-      <div className={cx('delete-button')} onClick={handleRemove}>삭제</div>
+      <div className={cx('delete-button')} onClick={(e) => {
+        e.stopPropagation();
+        handleRemove();
+      }}>삭제</div>
       <div className={cx('text', {done})}>{children}</div>
       <input className={cx('checker')} type="checkbox" checked={done} readOnly/>
     </div>

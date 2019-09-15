@@ -14,7 +14,7 @@ export default function TodoList({
       key={todo.get('id')}
       done={todo.get('done')}
       handleToggle={() => handleToggleItem(todo.get('id'))}
-      handleRemove={(e) => handleRemoveItem(e, todo.get('id'))}
+      handleRemove={() => handleRemoveItem(todo.get('id'))}
     >
       {todo.get('text')}
     </TodoItem>

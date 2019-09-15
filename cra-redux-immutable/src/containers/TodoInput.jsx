@@ -14,7 +14,7 @@ class TodoInputContainer extends React.Component {
     return ++this.id;
   }
   
-  handleChange = (e) => {
+  handleChange = e => {
     const { value } = e.target;
     const { InputActions } = this.props;
     InputActions.setInput(value);
@@ -22,6 +22,9 @@ class TodoInputContainer extends React.Component {
 
   handleInsert = () => {
     const { InputActions, TodosActions, value } = this.props;
+    if (value.trim() === '') {
+      return;
+    }
     const todo = {
       id: this.getIncreasedId(),
       text: value,
