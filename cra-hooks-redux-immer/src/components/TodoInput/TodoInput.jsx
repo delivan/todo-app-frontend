@@ -1,40 +1,35 @@
-import React, { useRef, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useReducer, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import * as inputActions from '../../modules/input';
-import * as todosActions from '../../modules/todos';
+import inputReducer, { initialState, SET_INPUT } from '../../modules/input'; 
+import { initialTodos ,INSERT } from '../../modules/todos'; 
 
 import styles from './TodoInput.scss';
 
 const cx = classNames.bind(styles);
 
-function TodoInput({
-  value,
-  InputActions,
-  TodosActions
-}) {
-  const todoIdRef = useRef(todosActions.initialTodos.length - 1);
+function TodoInput({ todosDispatch }) {
+  const [state, inputDispatch] = useReducer(inputReducer, initialState);
+  const todoIdRef = useRef(initialTodos.length - 1);
 
   const handleChange = useCallback(e => {
     const { value } = e.target;
-    InputActions.setInput(value);
-  }, [InputActions]);
+    inputDispatch({ type: SET_INPUT, payload: value });
+  }, [inputDispatch]);
 
-  const handleInsert = useCallback(e => {
-    if (value.trim() === '') {
+  const handleInsert = useCallback(() => {
+    if (state.value.trim() === '') {
       return;
     }
     const todo = {
       id: ++todoIdRef.current,
-      text: value,
+      text: state.value,
       done: false
     };
-    TodosActions.insert(todo);
-    InputActions.setInput('');
-  }, [InputActions, TodosActions, todoIdRef, value]);
+    todosDispatch({ type: INSERT, payload: todo });
+    inputDispatch({ type: SET_INPUT, payload: '' });
+  }, [todosDispatch, inputDispatch, todoIdRef, state.value]);
 
   const handleKeyPress = useCallback(e => {
     if (e.key === 'Enter') {
@@ -44,27 +39,14 @@ function TodoInput({
 
   return (
     <div className={cx('todo-input')}>
-      <input value={value} onChange={handleChange} onKeyPress={handleKeyPress}/>
+      <input value={state.value} onChange={handleChange} onKeyPress={handleKeyPress}/>
       <div className={cx('add-button')} onClick={handleInsert}>추가</div>
     </div>  
   );
 }
 
 TodoInput.propTypes = {
-  value: PropTypes.string,
-  currentId: PropTypes.number,
-  InputActions: PropTypes.object,
-  TodosActions: PropTypes.object,
+  todosDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  value: state.input.value
-});
-const mapDispatchToProps = dispatch => ({
-  InputActions: bindActionCreators(inputActions, dispatch),
-  TodosActions: bindActionCreators(todosActions, dispatch)
-});
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoInput);
+export default TodoInput;

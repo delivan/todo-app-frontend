@@ -1,24 +1,21 @@
 import React, { useCallback } from 'react';
 import PropTyeps from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import classNames from 'classnames/bind';
 
-import * as todosActions from '../../modules/todos';
-
+import { TOGGLE, REMOVE } from '../../modules/todos';
 import styles from './TodoItem.scss';
 
 const cx = classNames.bind(styles);
 
-function TodoItem({ id, done, TodosActions, children }) {
+function TodoItem({ id, done, todosDispatch, children }) {
   const handleToggle = useCallback(() => {
-    TodosActions.toggle(id);
-  }, [TodosActions, id]);
+    todosDispatch({ type: TOGGLE, payload: id });
+  }, [todosDispatch, id]);
 
   const handleRemove = useCallback(e => {
     e.stopPropagation();
-    TodosActions.remove(id);
-  }, [TodosActions, id]);
+    todosDispatch({ type: REMOVE, payload: id });
+  }, [todosDispatch, id]);
 
   return (
     <div className={cx('todo-item')} onClick={handleToggle}>
@@ -32,13 +29,7 @@ function TodoItem({ id, done, TodosActions, children }) {
 TodoItem.propTypes = {
   id: PropTyeps.number,
   done: PropTyeps.bool,
-  TodosActions: PropTyeps.object
+  todosDispatch: PropTyeps.func
 };
 
-const mapDispatchToProps = dispatch => ({
-  TodosActions: bindActionCreators(todosActions, dispatch)
-});
-export default connect(
-  null,
-  mapDispatchToProps
-)(React.memo(TodoItem));
+export default React.memo(TodoItem);

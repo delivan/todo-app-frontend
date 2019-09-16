@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import TodoItem from '../TodoItem';
 
-function TodoList({ todos }) {
+function TodoList({ todos, todosDispatch }) {
   const todoList = todos.map(todo => (
     <TodoItem
       key={todo.id}
       id={todo.id}
       done={todo.done}
+      todosDispatch={todosDispatch}
     >
       {todo.text}
     </TodoItem>
@@ -23,13 +23,8 @@ function TodoList({ todos }) {
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.array
+  todos: PropTypes.array,
+  todosDispatch: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  todos: state.todos
-});
-export default connect(
-  mapStateToProps,
-  null,
-)(TodoList);
+export default TodoList;

@@ -9,7 +9,7 @@ export default function PageTemplate({ children }) {
   return (
     <div className={cx('page-template')}>
       <h1>Todo App Frontend</h1>
-      <p>skills: CRA(with React Hooks), Redux, Immer.js </p>
+      <p>skills: CRA(with React Hooks), Redux, Immutable.js </p>
       <div className={cx('content')}>
         {children}
       </div>
