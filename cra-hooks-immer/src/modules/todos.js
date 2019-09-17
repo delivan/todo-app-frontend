@@ -16,11 +16,6 @@ export const initialTodos = [
   },
   {
     id: 2,
-    text: 'Redux 적용하기',
-    done: true
-  },
-  {
-    id: 3,
     text: 'Immer.js 적용하기',
     done: true
   }
@@ -57,6 +52,6 @@ export default function todosReducer(state, action) {
       });
     }
     default: 
-      throw new Error('no exists type');
+      throw new Error('Invalid action type');
   }
 }

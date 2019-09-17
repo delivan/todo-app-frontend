@@ -1,5 +1,5 @@
 {
-  "name": "cra-hooks-redux-immer",
+  "name": "cra-hooks-immer",
   "version": "1.0.0",
   "dependencies": {
     "classnames": "^2.2.6",
@@ -8,10 +8,7 @@
     "open-color": "^1.7.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-redux": "^7.1.1",
-    "react-scripts": "3.1.1",
-    "redux": "^4.0.4",
-    "redux-actions": "^2.6.5"
+    "react-scripts": "3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
