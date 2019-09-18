@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import TodoItem from '../TodoItem';
 
-function TodoList({ todos, todosDispatch }) {
+function TodoList({ todos, toggleTodo, removeTodo }) {
   const todoList = todos.map(todo => (
     <TodoItem
       key={todo.id}
       id={todo.id}
       done={todo.done}
-      todosDispatch={todosDispatch}
+      toggle={toggleTodo}
+      remove={removeTodo}
     >
       {todo.text}
     </TodoItem>
@@ -24,7 +25,8 @@ function TodoList({ todos, todosDispatch }) {
 
 TodoList.propTypes = {
   todos: PropTypes.array,
-  todosDispatch: PropTypes.func
+  toggleTodo: PropTypes.func,
+  removeTodo: PropTypes.func
 };
 
 export default TodoList;

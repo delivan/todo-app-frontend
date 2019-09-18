@@ -1,24 +1,18 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import inputReducer, { initialState, SET_INPUT } from '../../modules/input'; 
-import { initialTodos ,INSERT } from '../../modules/todos'; 
+import useInput from '../../hooks/useInput';
 
 import styles from './TodoInput.scss';
 
 const cx = classNames.bind(styles);
 
-function TodoInput({ todosDispatch }) {
-  const [state, inputDispatch] = useReducer(inputReducer, initialState);
-  const todoIdRef = useRef(initialTodos.length - 1);
+function TodoInput({ insertTodo, defaultTodoId }) {
+  const {state, setValue} = useInput();
+  const todoIdRef = useRef(defaultTodoId);
 
-  const handleChange = useCallback(e => {
-    const { value } = e.target;
-    inputDispatch({ type: SET_INPUT, payload: value });
-  }, [inputDispatch]);
-
-  const handleInsert = useCallback(() => {
+  const handleInsert = () => {
     if (state.value.trim() === '') {
       return;
     }
@@ -27,26 +21,31 @@ function TodoInput({ todosDispatch }) {
       text: state.value,
       done: false
     };
-    todosDispatch({ type: INSERT, payload: todo });
-    inputDispatch({ type: SET_INPUT, payload: '' });
-  }, [todosDispatch, inputDispatch, todoIdRef, state.value]);
+    insertTodo(todo);
+    setValue('');
+  };
 
-  const handleKeyPress = useCallback(e => {
+  const handleKeyPress = e => {
     if (e.key === 'Enter') {
       handleInsert();
     }
-  }, [handleInsert]);
+  };
 
   return (
     <div className={cx('todo-input')}>
-      <input value={state.value} onChange={handleChange} onKeyPress={handleKeyPress}/>
+      <input 
+        value={state.value}
+        onChange={e => setValue(e.target.value)}
+        onKeyPress={handleKeyPress}
+      />
       <div className={cx('add-button')} onClick={handleInsert}>추가</div>
     </div>  
   );
 }
 
 TodoInput.propTypes = {
-  todosDispatch: PropTypes.func
+  insertTodo: PropTypes.func,
+  defaultTodoId: PropTypes.number
 };
 
 export default TodoInput;
