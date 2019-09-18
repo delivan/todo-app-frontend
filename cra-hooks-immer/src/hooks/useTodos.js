@@ -62,10 +62,12 @@ const todosReducer = (state, action) => {
 
 export default function useTodos(initialTodos = defaultTodos) {
   const [todos, dispatch] = useReducer(todosReducer, initialTodos);
+  const defaultTodoId = initialTodos.length - 1;
 
   const insertTodo = useCallback(todo => dispatch({ type: types.insert, payload: todo }), []);
   const toggleTodo = useCallback(id => dispatch({ type: types.toggle, payload: id }), []);
   const removeTodo = useCallback(id => dispatch({ type: types.remove, payload: id }), []);
 
-  return {todos, insertTodo, toggleTodo, removeTodo};
+
+  return {todos, defaultTodoId, insertTodo, toggleTodo, removeTodo};
 }
