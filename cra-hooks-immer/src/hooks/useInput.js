@@ -6,15 +6,18 @@ const types = {
 };
 
 const inputReducer = (state, action) => {
-  switch (action.type) {
-    case types.setValue:
-      const value = action.payload;
-      return produce(state, draft => {
+  return produce(state, draft => {
+    switch (action.type) {
+      case types.setValue: {
+        const value = action.payload;
+        
         draft.value = value;
-      });
-    default:
-      throw new Error(`Invalid action type: ${action.type}`);
-  }
+        break;
+      }
+      default:
+        throw new Error(`Invalid action type: ${action.type}`);
+    }
+  });
 };
 
 const defaultState = {

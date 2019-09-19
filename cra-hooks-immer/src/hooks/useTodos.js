@@ -26,38 +26,37 @@ const types = {
 };
 
 const todosReducer = (state, action) => {
-  switch (action.type) {
-    case types.insert: {
-      const { id, text, done } = action.payload;
-      const todo = {
-        id,
-        text,
-        done
-      };
-  
-      return produce(state, draft => {
+  return produce(state, draft => {
+    switch (action.type) {
+      case types.insert: {
+        const { id, text, done } = action.payload;
+
+        const todo = {
+          id,
+          text,
+          done
+        };
         draft.push(todo);
-      });
-    }
-    case types.toggle: {
-      const { payload: id } = action;
+        break;
+      }
+      case types.toggle: {
+        const { payload: id } = action;
 
-      const index = state.findIndex(todo => todo.id === id);
-      return produce(state, draft => {
+        const index = state.findIndex(todo => todo.id === id);
         draft[index].done = !draft[index].done;
-      });
-    }
-    case types.remove: {
-      const { payload: id } = action;
+        break;
+      }
+      case types.remove: {
+        const { payload: id } = action;
 
-      const index = state.findIndex(todo => todo.id === id);
-      return produce(state, draft => {
+        const index = state.findIndex(todo => todo.id === id);
         draft.splice(index, 1);
-      });
+        break;
+      }
+      default: 
+        throw new Error(`Invalid action type: ${action.type}`);
     }
-    default: 
-      throw new Error(`Invalid action type: ${action.type}`);
-  }
+  });
 };
 
 export default function useTodos(initialTodos = defaultTodos) {
@@ -67,7 +66,6 @@ export default function useTodos(initialTodos = defaultTodos) {
   const insertTodo = useCallback(todo => dispatch({ type: types.insert, payload: todo }), []);
   const toggleTodo = useCallback(id => dispatch({ type: types.toggle, payload: id }), []);
   const removeTodo = useCallback(id => dispatch({ type: types.remove, payload: id }), []);
-
 
   return {todos, defaultTodoId, insertTodo, toggleTodo, removeTodo};
 }
