@@ -19,6 +19,5 @@ it('renders with children', () => {
   act(() => {
     render(<PageTemplate>test</PageTemplate>, container);
   });
-
   expect(container.querySelector('.content').textContent).toBe('test');
 });

@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function TodoInput({ insertTodo, defaultTodoId }) {
   const {state, setValue} = useInput();
-  const todoIdRef = useRef(defaultTodoId);
+  const todoIdRef = useRef(defaultTodoId || 0);
 
   const handleInsert = () => {
     if (state.value.trim() === '') {
@@ -35,7 +35,9 @@ function TodoInput({ insertTodo, defaultTodoId }) {
     <div className={cx('todo-input')}>
       <input 
         value={state.value}
-        onChange={e => setValue(e.target.value)}
+        onChange={e => {
+          setValue(e.currentTarget.value)
+        }}
         onKeyPress={handleKeyPress}
       />
       <div className={cx('add-button')} onClick={handleInsert}>추가</div>
