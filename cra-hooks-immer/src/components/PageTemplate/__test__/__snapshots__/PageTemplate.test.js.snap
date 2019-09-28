@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="page-template"
+>
+  <h1>
+    Todo App Frontend
+  </h1>
+  <p>
+    skills: CRA(with React Hooks), Immer.js 
+  </p>
+  <div
+    className="content"
+  >
+    test
+  </div>
+</div>
+`;
+
+exports[`renders correctly 2`] = `
+<div
+  className="page-template"
+>
+  <h1>
+    Todo App Frontend
+  </h1>
+  <p>
+    skills: CRA(with React Hooks), Immer.js 
+  </p>
+  <div
+    className="content"
+  >
+    test2
+  </div>
+</div>
+`;
