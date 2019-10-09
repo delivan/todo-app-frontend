@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import AppStack from './src/screens';
 
-import rootReducer from './src/stores';
+import rootReducer from './src/modules';
 
 const store = createStore(rootReducer);
 
