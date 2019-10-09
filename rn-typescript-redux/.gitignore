@@ -1,6 +1,8 @@
 node_modules/**/*
 .expo/*
+.jest/&
 npm-debug.*
+yarn-error.*
 *.jks
 *.p8
 *.p12
