@@ -1,26 +1,35 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+
 import useHomeScreen from '../../hooks/useHomeScreen';
 
+import TodoList from '../TodoList';
+import TodoInput from '../TodoInput';
+
 const styles = StyleSheet.create({
-  HomeScreen: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  TextInput: {
-    width: '100%',
-    borderWidth: 1,
+  title: {
+    alignSelf: 'center',
+    padding: 10,
+    fontSize: 30,
+  },
+  desc: {
+    alignSelf: 'center',
+    marginBottom: 30,
+    fontSize: 14,
+    color: 'pink',
   },
 });
 
 function HomeScreen() {
-  const { text, onChangeText } = useHomeScreen();
-
   return (
-    <View style={styles.HomeScreen}>
-      <Text>{text}</Text>
-      <TextInput style={styles.TextInput} onChangeText={onChangeText} />
+    <View style={styles.container}>
+      <Text style={styles.title}>Todo App Frontend</Text>
+      <Text style={styles.desc}>skills: React Native, Typescript, Redux</Text>
+      <TodoInput />
+      <TodoList />
     </View>
   );
 }
