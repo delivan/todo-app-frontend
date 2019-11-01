@@ -1,28 +1,33 @@
-import { useReducer, useCallback } from 'react';
-import { produce } from 'immer';
+import { useReducer, useCallback } from "react";
+import { produce } from "immer";
 
 const defaultTodos = [
   {
     id: 0,
-    text: 'Creact React App 적용하기',
+    text: "React 적용하기",
     done: true
-  }, 
+  },
   {
     id: 1,
-    text: 'React Hooks 적용하기',
+    text: "Immer.js 적용하기",
     done: true
   },
   {
     id: 2,
-    text: 'Immer.js 적용하기',
+    text: "storybook 적용하기",
+    done: true
+  },
+  {
+    id: 3,
+    text: "Jest, Enzyme 적용하기",
     done: true
   }
 ];
 
 const types = {
-  insert: 'todos/INSERT',
-  toggle: 'todos/TOGGLE',
-  remove: 'todos/REMOVE'
+  insert: "todos/INSERT",
+  toggle: "todos/TOGGLE",
+  remove: "todos/REMOVE"
 };
 
 const todosReducer = (state, action) => {
@@ -53,7 +58,7 @@ const todosReducer = (state, action) => {
         draft.splice(index, 1);
         break;
       }
-      default: 
+      default:
         throw new Error(`Invalid action type: ${action.type}`);
     }
   });
@@ -63,9 +68,18 @@ export default function useTodos(initialTodos = defaultTodos) {
   const [todos, dispatch] = useReducer(todosReducer, initialTodos);
   const defaultTodoId = initialTodos.length - 1;
 
-  const insertTodo = useCallback(todo => dispatch({ type: types.insert, payload: todo }), []);
-  const toggleTodo = useCallback(id => dispatch({ type: types.toggle, payload: id }), []);
-  const removeTodo = useCallback(id => dispatch({ type: types.remove, payload: id }), []);
+  const insertTodo = useCallback(
+    todo => dispatch({ type: types.insert, payload: todo }),
+    []
+  );
+  const toggleTodo = useCallback(
+    id => dispatch({ type: types.toggle, payload: id }),
+    []
+  );
+  const removeTodo = useCallback(
+    id => dispatch({ type: types.remove, payload: id }),
+    []
+  );
 
-  return {todos, defaultTodoId, insertTodo, toggleTodo, removeTodo};
+  return { todos, defaultTodoId, insertTodo, toggleTodo, removeTodo };
 }
